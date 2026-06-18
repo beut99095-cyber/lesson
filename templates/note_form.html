@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% set is_edit = mode == "edit" %}
+{% block title %}{{ "Редактировать заметку" if is_edit else "Новая заметка" }}{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <div>
+        <p class="eyebrow">{{ "Редактирование" if is_edit else "Создание" }}</p>
+        <h1>{{ "Редактировать заметку" if is_edit else "Новая заметка" }}</h1>
+    </div>
+    <a class="button" href="{{ url_for('note_detail', note_id=note['id']) if is_edit else url_for('index') }}">Назад</a>
+</section>
+
+<form class="note-form" method="post">
+    <label for="title">Заголовок</label>
+    <input
+        id="title"
+        name="title"
+        type="text"
+        value="{{ note['title'] }}"
+        maxlength="120"
+        required
+        autofocus
+    >
+
+    <label for="content">Текст заметки</label>
+    <textarea id="content" name="content" rows="10" required>{{ note["content"] }}</textarea>
+
+    <div class="form-actions">
+        <button class="button button-primary" type="submit">
+            {{ "Сохранить" if is_edit else "Добавить" }}
+        </button>
+        <a class="button" href="{{ url_for('index') }}">Отмена</a>
+    </div>
+</form>
+{% endblock %}
