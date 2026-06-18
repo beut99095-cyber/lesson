@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ note["title"] }}{% endblock %}
+
+{% block content %}
+<article class="note-detail">
+    <div class="detail-header">
+        <div>
+            <p class="eyebrow">Заметка</p>
+            <h1>{{ note["title"] }}</h1>
+            <p class="note-date">Создано: {{ note["created_at"] }} · Обновлено: {{ note["updated_at"] }}</p>
+        </div>
+        <div class="detail-actions">
+            <a class="button" href="{{ url_for('index') }}">К списку</a>
+            <a class="button button-primary" href="{{ url_for('edit_note', note_id=note['id']) }}">Изменить</a>
+            <form method="post" action="{{ url_for('delete_note', note_id=note['id']) }}">
+                <button class="button button-danger" type="submit">Удалить</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="note-content">{{ note["content"] }}</div>
+</article>
+{% endblock %}
